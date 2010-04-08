@@ -1,0 +1,14 @@
+.estimates {
+   display: inline;
+}
+
+.estimates a {
+   padding: 0 5px;
+}
+
+li.current a,
+li.current a:link,
+li.current a:visited {
+   color: white;
+   background: blue;
+}

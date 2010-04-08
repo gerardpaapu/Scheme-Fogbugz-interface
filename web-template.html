@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Timesheet interface</title>
+    <link rel="Stylesheet" type="text/css" href="css/styles.css" media="screen" />
+  </head>
+  <body>
+    <h1>Work on a Case</h1>
+    <ul>
+      @in[case estimated]{
+      <li class="@(case-class case)">
+        <a href="@(start-work-url case)">
+          @(case-title case)
+        </a>
+      </li>
+      }
+    </ul>
+    <h1>Add an estimate</h1>
+    <ul>
+      @in[case unestimated]{
+      <li class="unestimated">
+        @(case-title case)
+        <div class="estimates">
+          @(estimate-links case)
+        </div>
+      </li>
+      }
+    </ul>
+  </body>
+</html>
