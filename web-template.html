@@ -1,32 +1,55 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
-"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <title>Timesheet interface</title>
-    <link rel="Stylesheet" type="text/css" href="css/styles.css" media="screen" />
-  </head>
-  <body>
-    <h1>Work on a Case</h1>
-    <ul>
-      @in[case estimated]{
-      <li class="@(case-class case)">
-        <a href="@(start-work-url case)">
-          @(case-title case)
-        </a>
-      </li>
-      }
-    </ul>
-    <h1>Add an estimate</h1>
-    <ul>
-      @in[case unestimated]{
-      <li class="unestimated">
-        @(case-title case)
-        <div class="estimates">
-          @(estimate-links case)
+<!DOCTYPE HTML>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Timesheet interface</title>
+        <link rel="Stylesheet" type="text/css" href="css/reset.css" media="screen" />
+        <link rel="Stylesheet" type="text/css" href="css/styles.css" media="screen" />
+    </head>
+    <body>
+        <div id="MainContainer">
+            @in[(project cases) estimated/grouped]{
+                <h2> @project </h2>
+                    <ul>
+                    @in[case cases]{
+                        <li class="@(case-class case)">
+                            <a class="details" href="http://fogbugz.phosphor.co.nz/default.asp?@(case-id case)">(@(case-id case))</a>
+                            <a class="startWork" href="@(start-work-url case)">
+                                @(case-title case)
+                            </a>
+                        </li>
+                    }
+                    </ul>
+    
+            }
+    
+            @when[(not (null? unestimated))]{
+                @list{
+                    <h2>Add an estimate</h2>
+                    <ul>
+                      @in[case unestimated]{
+                      <li class="unestimated">
+                        <a class="details" href="http://fogbugz.phosphor.co.nz/default.asp?@(case-id case)">@(case-id case)</a>
+                        @(case-project case) - 
+                        @(case-title case)
+                        <div class="estimates">
+                          @(estimate-links case)
+                        </div>
+                      </li>
+                      }
+                  </ul>
+              }
+            }
+            @when[current-case]{
+                @list{
+                <div id="CurrentCase">
+                    <span class="description">
+                        You're working on <q>@(case-title current-case)</q>
+                    </span>
+                    <a id="StopWork" href="@stop-work-url">Stop Work</a>
+                </div>
+               }
+            }
         </div>
-      </li>
-      }
-    </ul>
-  </body>
+    </body>
 </html>

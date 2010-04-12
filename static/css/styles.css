@@ -1,14 +1,123 @@
+body {
+    background: #111;
+    font-size: 14px;
+    font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+    line-height: 1.4;
+}
+
+#MainContainer { 
+    width: 40em;
+    padding: 0.5em 2em 2em;
+    margin: 0 auto;
+    background: white;
+    border-radius: 0 0 2em 2em;
+    -moz-border-radius: 0 0 2em 2em;
+    -webkit-border-radius: 0 0 2em 2em;
+    color: #333;
+}
+
+a, a:link {
+    color: blue;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #551A8B;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: 1.2em 0 0.75em;
+    font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif," "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+}
+
+h1 { font-size: 2em; margin: 0.5em 0; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.4em; }
+h4, h5, h6 { font-size: 1.2em; }
+
+p { margin: 1em 0; }
+
+ul, ol {
+    margin: 0 3em;
+}
+
+q { 
+    font-style: italic; 
+    color: #333;
+}
+q:before { 
+    content: "\201C"; 
+}
+q:after { content: "\201D"; }
 .estimates {
    display: inline;
 }
 
 .estimates a {
-   padding: 0 5px;
+   padding: 0 1em;
 }
 
-li.current a,
-li.current a:link,
-li.current a:visited {
+.current a.startWork,
+.current a.startWork:link,
+.current a.startWork:visited {
    color: white;
    background: blue;
+}
+
+a.details {
+    padding: 0 1em 0 0;
+}
+
+#CurrentCase {
+    display: block;
+    position: relative;
+    margin-top: 2em;
+    background: #ccc;
+    margin-top: 2em;
+    padding: 1em;
+    color: #222;
+    border-radius: 1em;
+    -moz-border-radius: 1em;
+    -webkit-border-radius: 1em;
+    -moz-box-shadow: 3px 3px 3px #999;
+    -webkit-box-shadow: 3px 3px 3px #999;
+    box-shadow: 3px 3px 3px #999;
+}
+
+#CurrentCase:after {
+    content: ".";
+    display: block;
+    clear: both;
+    height: 0px;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+#CurrentCase .description {
+    float: left;
+    width: 28em;
+}
+#StopWork {
+    display: block;
+    float: right;
+    padding: 0.5em 1em;
+
+    color: white;
+    background: rgba(255, 0, 0, 0.8);
+
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    border-radius: 0.5em;
+    -moz-border-radius: 0.5em;
+    -webkit-border-radius: 0.5em;
+
+    -moz-box-shadow: 3px 3px 3px #999;
+    -webkit-box-shadow: 3px 3px 3px #999;
+    box-shadow: 3px 3px 3px #999;
 }

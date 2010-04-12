@@ -82,6 +82,7 @@
 (provide list-cases search list-filters set-current-filter)
 
 (define (list-cases [columns #f])
+  (set-current-filter "ez") ; sets the current filter to the "My Cases" builtin
   (map case-xml->dict
        ((sxpath "/response/cases/case")
         (fb-command "search" `([cols . ,(and columns (string-join columns ","))])))))
@@ -117,7 +118,7 @@
 ;;; Time Tracking
 ;;; =============
 
-(provide start-work stop-work list-intervals new-interval set-estimate)
+(provide start-work stop-work working-on list-intervals new-interval set-estimate)
 
 (define (start-work case)
   (fb-command "startWork" `([ixBug . ,case])))
@@ -146,3 +147,12 @@
   (fb-command "edit"
               `([ixBug . ,bug]
                 [hrsCurrEst . ,(number->string n)])))
+
+(define (working-on)
+    (let ([current ((sxpath "//interval [dtend = '']")
+                    (list-intervals))])
+      (if (not (null? current))
+          (first ((sxpath "ixbug/text()") current))
+          #f)))
+        
+
