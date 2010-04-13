@@ -1,6 +1,5 @@
 #lang scheme
-(require "codes.ss"
-         "structs.ss"
+(require "structs.ss"
          net/url
          srfi/19
          (planet bzlib/xml:1:1)
@@ -10,7 +9,7 @@
 ;;; ========================
 
 (provide base-url)
-(define base-url (make-parameter #f))
+(define base-url (make-parameter "http://fogbugz.phosphor.co.nz/api.asp"))
 
 ;;; API Calls
 ;;; =========
@@ -67,7 +66,7 @@
 
 (define (list-cases token)
   (define columns '("ixBug" "sTitle" "hrsCurrEst" "sProject"))
-  (set-current-filter my-cases)
+  (set-current-filter token my-cases)
   (map case-xml->dict
        ((sxpath "/response/cases/case")
         (fb-command token "search" `([cols . ,(string-join columns ",")])))))
@@ -135,4 +134,4 @@
     (let ([current ((sxpath "//interval [dtend = '']")
                     (list-intervals token))])
       (and (not (null? current))
-           (first ((sxpath "ixbug/text()") current)))))
+           (case-xml->dict current))))

@@ -7,7 +7,9 @@
 (define (case-xml->dict xml)
   (for/hash ([tag ((sxpath "*") xml)])
             (values ((sxpath "name(.)") tag)
-                    (first ((sxpath "./text()") tag)))))
+                    (let ([text ((sxpath "./text()") tag)])
+                      (and (not (null? text))
+                           (first text))))))
 
 (define (case-id case)
   (dict-ref case "ixbug"))

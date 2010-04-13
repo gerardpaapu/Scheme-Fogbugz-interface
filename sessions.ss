@@ -1,5 +1,12 @@
 #lang scheme 
-(require "structs.ss")
+(require "structs.ss"
+         (prefix-in fb: "fogbugz-api.ss")
+         web-server/servlet
+         web-server/servlet/web
+         web-server/formlets
+         web-server/http/cookie
+         web-server/http/cookie-parse)
+
 (provide (all-defined-out))
 
 (define (login)
@@ -7,14 +14,13 @@
   (match-define (list email password)
                 (send/suspend/dispatch
                   (lambda (embed-url)
-                    (embed-formlet/post embed-url login-formlet))))
+                    (embed-formlet/post embed-url login-form))))
 
   (cond [(fb:logon email password)
          => (lambda (key)
-              (redirect-to
-                (app-url list-cases)
+              (redirect-to "/"
                 #:headers (list (cookie->header (make-cookie "fbtoken" key)))))]
-        [else (redirect-to (app-url login))]))
+        [else (login)]))
 
 (define login-form
   (let ([input-password (to-string (required (password-input)))]
@@ -41,20 +47,20 @@
                         (request-cookies req)))
   (and cookie (client-cookie-value cookie)))
 
-(define (exn:fb-not-logged-on? exn)
-  (and (exn:fogbugz-exception? exn)
-       (exn:fogbugz-exception-code "3")))
+(define (exn:not-logged-on? exn)
+  (and (exn:fogbugz-error? exn)
+       (exn:fogbugz-error-code "3")))
 
 (define-syntax define-session-page
   ;; get the session-key or redirect to the login page
   (syntax-rules ()
     [(define-session-page (name token . args) body ...)
      (define (name req . args)
-       (with-handlers ([exn:fb-not-logged-on? (lambda (err)
+       (with-handlers ([exn:not-logged-on? (lambda (err)
                                                 (login))])
          (cond [(get-session req)
-              => (lambda (token)
-                   body
-                   ...)]
-             [else (login)]))) 
+                => (lambda (token)
+                     body
+                     ...)]
+               [else (login)]))) 
      ]))
