@@ -1,5 +1,6 @@
 #lang scheme
 (require "codes.ss"
+         "fb-structs.ss"
          net/url
          srfi/19
          (planet bzlib/xml:1:1)
@@ -8,17 +9,14 @@
 ;;; Customization Parameters
 ;;; ========================
 
-(provide base-url default-email default-password)
-
+(provide base-url)
 (define base-url (make-parameter #f))
-(define default-email (make-parameter #f))
-(define default-password (make-parameter #f))
 
 ;;; API Calls
 ;;; =========
 ;;;
 ;;; all normal calls to the api should go through fb-command
-;;; which uses the current auth-token.
+;;; which uses the requires an auth-token.
 ;;;
 ;;; fb-command* is a little more raw, and isn't logon aware at all
 
@@ -32,87 +30,71 @@
                                                     [query params*])
                                        get-pure-port
                                        read-sxml)])
-        (cond [(error-response? response) => error]
+        (cond [(error-response? response) => raise]
               [else response]))))
 
-(define (fb-command name [params '()])
-  ;; makes sure you are logged on and handles the 'cmd' and 'token'
-  ;; arguments
-  (unless (auth-token)
-    (if (and (default-email)
-             (default-password))
-        (logon (default-email)
-               (default-password))
-        (error "email and/or password not set")))
-  
+(define (fb-command token name [params '()])
   (fb-command* (list* `[cmd . ,name]
-                      `[token . ,(auth-token)]
+                      `[token . ,token]
                       params)))
 
 (define (error-response? response)
-  (let ([err ((sxpath "/response/error/text()") response)])
-    (if (null? err)
-        #f
-        (first err))))
+  (let ([err ((sxpath "/response/error") response)])
+    (and (not (null? err))
+         (make-exn:fogbugz-error (first ((sxpath "@code") err))
+                                 (first ((sxpath "text()") err))))))
 
 ;;; Logging On and Off
 ;;; ==================
 
-(provide logon logoff auth-token)
-
-(define auth-token (make-parameter #f))
+(provide logon logoff)
 
 (define (logon email pw)
   (let* ([response (fb-command* `([cmd . "logon"]
                                   [email . ,email]
                                   [password . ,pw]))]
          [tokens ((sxpath "/response/token/text()") response)])
-    (if (null? tokens)
-        (error (format "no token in response: ~a" response))
-        (auth-token (first tokens)))))
+    (and (not (null? tokens)) 
+         (first tokens))))
 
-(define (logoff)
-  (fb-command "logoff")
-  (auth-token #f))
-
+(define (logoff token)
+  (fb-command token "logoff"))
 
 ;;; Searching and Listing Cases
 ;;; ===========================
 
 (provide list-cases search list-filters set-current-filter)
-(define (list-cases [columns #f])
+
+(define (list-cases token)
+  (define columns '("ixBug" "sTitle" "hrsCurrEst" "sProject"))
   (set-current-filter my-cases)
   (map case-xml->dict
        ((sxpath "/response/cases/case")
-        (fb-command "search" `([cols . ,(and columns (string-join columns ","))])))))
+        (fb-command token "search" `([cols . ,(string-join columns ",")])))))
 
-(define (search text
+(define (search token text
                 #:max     [max #f]
                 #:columns [columns #f])
-  (let ([response (fb-command "search"
+  (let ([response (fb-command token "search"
                               `([q . ,text]
                                 [max . ,max]
                                 [cols . ,(and columns (string-join columns ","))]))])
     (map case-xml->dict
          ((sxpath "/response/cases/case") response))))
 
-(define (list-filters)
+(define (list-filters token)
   (map (lambda (n)
          (cons (first ((sxpath "@sfilter/text()") n))
                ((sxpath "text()") n)))
        
        ((sxpath "/response/filters/filter")
-        (fb-command "listFilters"))))
+        (fb-command token "listFilters"))))
 
-(define (set-current-filter id)
+(define (set-current-filter token id)
   ;; id *must* be an sFilter attribute returned by list-filters
-  (fb-command "setCurrentFilter"
+  (fb-command token
+              "setCurrentFilter"
               `([sFilter . ,id])))
-
-(define (case-xml->dict xml)
-  (for/hash ([tag ((sxpath "*") xml)])
-            (values ((sxpath "name(.)") tag)
-                    (first ((sxpath "./text()") tag)))))
 
 (define my-cases "ez")
 
@@ -121,36 +103,36 @@
 
 (provide start-work stop-work working-on list-intervals new-interval set-estimate)
 
-(define (start-work case)
-  (fb-command "startWork" `([ixBug . ,case])))
+(define (start-work token case)
+  (fb-command token "startWork" `([ixBug . ,case])))
 
-(define (stop-work)
-  (fb-command "stopWork"))
+(define (stop-work token)
+  (fb-command token "stopWork"))
 
-(define (list-intervals #:person [person #f]
+(define (list-intervals token
+                        #:person [person #f]
                         #:bug [bug #f]
                         #:start [start #f]
                         #:end [end #f])
-  (fb-command "listIntervals"
+  (fb-command token "listIntervals"
               `([ixPerson . ,person]
                 [ixBug . ,bug]
                 [dtStart . ,(and start (date->string start))]
                 [dtEnd . ,(and end (date->string end))])))
 
-(define (new-interval bug start stop)
-  (fb-command "newInterval"
+(define (new-interval token bug start stop)
+  (fb-command token "newInterval"
               `([ixBug . ,bug]
                 [dtStart . ,(date->string start)]
                 [dtEnd . ,(date->string stop)])))
 
-(define (set-estimate bug n)
-  (fb-command "edit"
+(define (set-estimate token bug n)
+  (fb-command token "edit"
               `([ixBug . ,bug]
                 [hrsCurrEst . ,(number->string n)])))
 
-(define (working-on)
+(define (working-on token)
     (let ([current ((sxpath "//interval [dtend = '']")
-                    (list-intervals))])
-      (if (not (null? current))
-          (first ((sxpath "ixbug/text()") current))
-          #f)))
+                    (list-intervals token))])
+      (and (not (null? current))
+           (first ((sxpath "ixbug/text()") current)))))
