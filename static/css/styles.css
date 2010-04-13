@@ -1,123 +1,140 @@
+.clearfix:after {
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0px;
+  overflow: hidden;
+  visibility: hidden;
+}
 body {
-    background: #111;
-    font-size: 14px;
-    font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
-    line-height: 1.4;
+  background: #111111;
+  font-size: 14px;
+  font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+  line-height: 1.4;
 }
-
-#MainContainer { 
-    width: 40em;
-    padding: 0.5em 2em 2em;
-    margin: 0 auto;
-    background: white;
-    border-radius: 0 0 2em 2em;
-    -moz-border-radius: 0 0 2em 2em;
-    -webkit-border-radius: 0 0 2em 2em;
-    color: #333;
+#MainContainer {
+  width: 40em;
+  padding: 0.5em 2em 2em;
+  margin: 0 auto;
+  background: white;
+  color: #333333;
+  border-radius: 0 0 3em 3em;
+  -moz-border-radius: 0 0 3em 3em;
+  -webkit-border-radius: 0 0 3em 3em;
+  -moz-box-shadow: 1em 1em 1em black;
+  -webkit-box-shadow: 1em 1em 1em black;
+  box-shadow: 1em 1em 1em black;
 }
-
-a, a:link {
-    color: blue;
-    text-decoration: underline;
+#MainContainer:after {
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0px;
+  overflow: hidden;
+  visibility: hidden;
 }
-
-a:visited {
-    color: #551A8B;
+a {
+  color: blue;
+  text-decoration: underline;
 }
-
-a:hover, a:active {
-    text-decoration: none;
+a:link {
+  color: blue;
+  text-decoration: underline;
 }
-
+a:visited { color: #551a8b; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
 h1, h2, h3, h4, h5, h6 {
-    font-weight: bold;
-    margin: 1.2em 0 0.75em;
-    font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif," "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+  font-weight: bold;
+  margin: 1.3em 0 0.6em;
+  font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif," "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
 }
-
-h1 { font-size: 2em; margin: 0.5em 0; }
+h1 {
+  font-size: 2em;
+  margin: 0.5em 0;
+}
 h2 { font-size: 1.6em; }
 h3 { font-size: 1.4em; }
 h4, h5, h6 { font-size: 1.2em; }
-
 p { margin: 1em 0; }
-
-ul, ol {
-    margin: 0 3em;
+ul, ol { margin: 0 3em; }
+q {
+  font-style: italic;
+  color: #333333;
 }
-
-q { 
-    font-style: italic; 
-    color: #333;
-}
-q:before { 
-    content: "\201C"; 
-}
+q:before { content: "\201C"; }
 q:after { content: "\201D"; }
-.estimates {
-   display: inline;
+.estimates { display: inline; }
+.estimates a { padding: 0 1em; }
+ul { list-style: none; }
+ul li.case {
+  padding: 0.5em;
+  margin: 0 2em;
+  clear: left;
 }
-
-.estimates a {
-   padding: 0 1em;
-}
-
-.current a.startWork,
-.current a.startWork:link,
-.current a.startWork:visited {
-   color: white;
-   background: blue;
-}
-
+ul li.current { background: #bada55; }
 a.details {
-    padding: 0 1em 0 0;
+  padding: 0.2em;
+  display: block;
+  float: left;
+  margin: 0 0.7em 0 -4.4em;
+  width: 3em;
+  text-align: center;
+  background: #999999;
+  border-radius: 0.3em 0.3em 0.3em 0.3em;
+  -moz-border-radius: 0.3em 0.3em 0.3em 0.3em;
+  -webkit-border-radius: 0.3em 0.3em 0.3em 0.3em;
 }
-
+a.details:link {
+  color: white;
+  text-decoration: none;
+}
+a.details:visited {
+  color: white;
+  text-decoration: none;
+}
+a.details:hover { background: #555555; }
+a.details:active { background: #555555; }
 #CurrentCase {
-    display: block;
-    position: relative;
-    margin-top: 2em;
-    background: #ccc;
-    margin-top: 2em;
-    padding: 1em;
-    color: #222;
-    border-radius: 1em;
-    -moz-border-radius: 1em;
-    -webkit-border-radius: 1em;
-    -moz-box-shadow: 3px 3px 3px #999;
-    -webkit-box-shadow: 3px 3px 3px #999;
-    box-shadow: 3px 3px 3px #999;
+  display: block;
+  position: relative;
+  margin-top: 2em;
+  background: #cccccc;
+  margin-top: 2em;
+  padding: 1em;
+  color: #222222;
+  border-radius: 1em 1em 1em 1em;
+  -moz-border-radius: 1em 1em 1em 1em;
+  -webkit-border-radius: 1em 1em 1em 1em;
+  -moz-box-shadow: 0.3em 0.3em 0.3em #999999;
+  -webkit-box-shadow: 0.3em 0.3em 0.3em #999999;
+  box-shadow: 0.3em 0.3em 0.3em #999999;
 }
-
 #CurrentCase:after {
-    content: ".";
-    display: block;
-    clear: both;
-    height: 0px;
-    overflow: hidden;
-    visibility: hidden;
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0px;
+  overflow: hidden;
+  visibility: hidden;
 }
-
 #CurrentCase .description {
-    float: left;
-    width: 28em;
+  float: left;
+  width: 28em;
 }
 #StopWork {
-    display: block;
-    float: right;
-    padding: 0.5em 1em;
-
-    color: white;
-    background: rgba(255, 0, 0, 0.8);
-
-    font-weight: bold;
-    text-decoration: none;
-    text-align: center;
-    border-radius: 0.5em;
-    -moz-border-radius: 0.5em;
-    -webkit-border-radius: 0.5em;
-
-    -moz-box-shadow: 3px 3px 3px #999;
-    -webkit-box-shadow: 3px 3px 3px #999;
-    box-shadow: 3px 3px 3px #999;
+  display: block;
+  float: right;
+  padding: 0.5em 1em;
+  color: white;
+  background: rgba(255, 0, 0, 0.8);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -moz-box-shadow: 0.3em 0.3em 0.3em #999999;
+  -webkit-box-shadow: 0.3em 0.3em 0.3em #999999;
+  box-shadow: 0.3em 0.3em 0.3em #999999;
 }

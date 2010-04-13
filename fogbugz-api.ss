@@ -80,9 +80,8 @@
 ;;; ===========================
 
 (provide list-cases search list-filters set-current-filter)
-
 (define (list-cases [columns #f])
-  (set-current-filter "ez") ; sets the current filter to the "My Cases" builtin
+  (set-current-filter my-cases)
   (map case-xml->dict
        ((sxpath "/response/cases/case")
         (fb-command "search" `([cols . ,(and columns (string-join columns ","))])))))
@@ -115,6 +114,8 @@
             (values ((sxpath "name(.)") tag)
                     (first ((sxpath "./text()") tag)))))
 
+(define my-cases "ez")
+
 ;;; Time Tracking
 ;;; =============
 
@@ -130,7 +131,6 @@
                         #:bug [bug #f]
                         #:start [start #f]
                         #:end [end #f])
-  
   (fb-command "listIntervals"
               `([ixPerson . ,person]
                 [ixBug . ,bug]
@@ -154,5 +154,3 @@
       (if (not (null? current))
           (first ((sxpath "ixbug/text()") current))
           #f)))
-        
-
