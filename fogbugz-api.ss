@@ -1,6 +1,6 @@
 #lang scheme
 (require "codes.ss"
-         "fb-structs.ss"
+         "structs.ss"
          net/url
          srfi/19
          (planet bzlib/xml:1:1)

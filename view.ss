@@ -1,5 +1,5 @@
 #lang scheme
-(require "fb-structs.ss"
+(require "structs.ss"
          "dispatch.ss")
 
 (provide list-cases)

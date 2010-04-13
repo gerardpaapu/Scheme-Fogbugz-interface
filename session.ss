@@ -1,5 +1,5 @@
 #lang scheme 
-(require "fb-structs.ss")
+(require "structs.ss")
 (provide (all-defined-out))
 
 (define (login)
