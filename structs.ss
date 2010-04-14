@@ -21,7 +21,7 @@
   (dict-ref case "sproject"))
 
 (define (case-estimate case)
-  (dict-ref case "hrscurrest"))
+  (string->number (dict-ref case "hrscurrest")))
 
 (define-struct (exn:fogbugz-error exn:fail)
                (code message)
