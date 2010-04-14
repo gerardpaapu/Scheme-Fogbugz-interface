@@ -4,6 +4,8 @@
          web-server/servlet
          web-server/servlet-env)
 
+(provide serve-app)
+
 (define (serve-app)
   (serve/servlet app-dispatch
                  #:servlet-regexp #rx""
