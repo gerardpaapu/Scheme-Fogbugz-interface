@@ -6,9 +6,10 @@
 
 (define (serve-app)
   (serve/servlet app-dispatch
-                 #:servlet-path "/"
+                 #:servlet-regexp #rx""
+                 #:extra-files-paths '("static")
                  #:launch-browser? #f
-                 #:port 8080
+                 #:port 8000
                  #:listen-ip #f))
 
 

@@ -34,9 +34,12 @@
                         <a class="details" href="http://fogbugz.phosphor.co.nz/default.asp?@(case-id case)">@(case-id case)</a>
                         @(case-project case) - 
                         @(case-title case)
-                        <div class="estimates">
-                          @(set-estimate-url (case-id case) 1)
-                        </div>
+                        <ul class="estimates">
+                            <li> <a href="@(set-estimate-url (case-id case) 0.5)">half an hour</a> </li>
+                            <li> <a href="@(set-estimate-url (case-id case) 1)">an hour</a> </li>
+                            <li> <a href="@(set-estimate-url (case-id case) 2)">two hours</a> </li>
+                            <li> <a href="@(set-estimate-url (case-id case) 4)">four hour</a> </li>
+                        </li>
                       </li>
                       }
                   </ul>

@@ -1,0 +1,153 @@
+.rounded-corners (@r1: 1em, @r2: 1em, @r3: 1em, @r4: 1em) {
+    border-radius: @r1 @r2 @r3 @r4;
+    -moz-border-radius: @r1 @r2 @r3 @r4;
+    -webkit-border-radius: @r1 @r2 @r3 @r4;
+}
+
+.shadow (@distance: 0.5em, @color: #555){
+    -moz-box-shadow: @distance @distance @distance @color;
+    -webkit-box-shadow: @distance @distance @distance @color;
+    box-shadow: @distance @distance @distance @color;
+}
+
+.clearfix {
+    :after {
+        content: ".";
+        display: block;
+        clear: both;
+        height: 0px;
+        overflow: hidden;
+        visibility: hidden;
+    }
+}
+body {
+    background: #111;
+    font-size: 14px;
+    font-family: Corbel, "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", "DejaVu Sans", "Bitstream Vera Sans", "Liberation Sans", Verdana, "Verdana Ref", sans-serif;
+    line-height: 1.4;
+}
+
+
+#MainContainer { 
+    width: 40em;
+    padding: 0.5em 2em 2em;
+    margin: 0 auto;
+    background: white;
+    color: #333;
+    .rounded-corners(0, 0, 3em, 3em); 
+    .clearfix;
+    .shadow(1em, black);
+}
+
+a, a:link {
+    color: blue;
+    text-decoration: underline;
+}
+
+a:visited {
+    color: #551A8B;
+}
+
+a:hover, a:active {
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+    margin: 1.3em 0 0.6em;
+    font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif," "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
+}
+
+h1 { font-size: 2em; margin: 0.5em 0; }
+h2 { font-size: 1.6em; }
+h3 { font-size: 1.4em; }
+h4, h5, h6 { font-size: 1.2em; }
+
+p { margin: 1em 0; }
+
+ul, ol {
+    margin: 0 3em;
+}
+
+q { 
+    font-style: italic; 
+    color: #333;
+}
+q:before { 
+    content: "\201C"; 
+}
+q:after { content: "\201D"; }
+.estimates {
+   display: inline;
+}
+
+.estimates a {
+   padding: 0 1em;
+}
+
+ul {
+    list-style: none;
+    li.case {
+        padding: 0.5em;
+        margin: 0 2em;
+        clear: left;
+    }
+
+    li.current {
+        background: #bada55;
+    }
+}
+
+
+a.details {
+    padding: 0.2em;
+    display: block;
+    float: left;
+    margin: 0 0.7em 0 -4.4em;
+    width: 3em;
+    text-align: center;
+    background: #999;
+    .rounded-corners(0.3em, 0.3em, 0.3em, 0.3em);
+
+    :link, :visited {
+        color: white;
+        text-decoration: none;
+    }
+
+    :hover, :active {
+        background: #555;
+    }
+}
+
+#CurrentCase {
+    display: block;
+    position: relative;
+    margin-top: 2em;
+    background: #ccc;
+    margin-top: 2em;
+    padding: 1em;
+    color: #222;
+    .rounded-corners;
+    .clearfix;
+    .shadow(0.3em, #999);
+}
+
+#CurrentCase .description {
+    float: left;
+    width: 28em;
+}
+
+#StopWork {
+    display: block;
+    float: right;
+    padding: 0.5em 1em;
+
+    color: white;
+    background: rgba(255, 0, 0, 0.8);
+
+    font-weight: bold;
+    text-decoration: none;
+    text-align: center;
+    .rounded-corners(0.5em, 0.5em, 0.5em, 0.5em);
+    .shadow(0.3em, #999);
+}

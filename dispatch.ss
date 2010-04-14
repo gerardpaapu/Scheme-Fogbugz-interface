@@ -13,8 +13,7 @@
       [("") list-cases]
       [("start-work" (string-arg)) start-work]
       [("stop-work") stop-work]
-      [("set-estimate" (string-arg) (number-arg)) set-estimate]
-      [else list-cases]))
+      [("set-estimate" (string-arg) (number-arg)) set-estimate]))
 
 (define-session-page (list-cases key)
   (define cases (fb:list-cases key))
