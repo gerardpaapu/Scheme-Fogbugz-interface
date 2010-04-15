@@ -23,6 +23,4 @@
 (define (case-estimate case)
   (string->number (dict-ref case "hrscurrest")))
 
-(define-struct (exn:fogbugz-error exn:fail)
-               (code message)
-               #:transparent)
+(define-struct (exn:fogbugz-error exn:fail) (code) #:transparent)
