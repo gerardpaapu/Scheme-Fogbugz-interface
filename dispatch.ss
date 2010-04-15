@@ -28,7 +28,9 @@
 (define-session-page (list-cases key)
   (define cases (fb:list-cases key))
   (define current-case (fb:working-on key))
-  (view:list-cases cases current-case))
+  (apply view:list-cases cases current-case 
+         (map (lambda (n) (curry app-url n))
+              (list start-work stop-work set-estimate))))
 
 (define-action start-work fb:start-work)
 (define-action stop-work fb:stop-work)

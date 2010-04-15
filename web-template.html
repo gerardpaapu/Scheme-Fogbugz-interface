@@ -13,21 +13,21 @@
                 @list{
                 <div id="CurrentCase">
                     <span class="description">
-                        You're working on <q>@(case-title current-case)</q>
+                        You're working on <q>@(case-project current-case): @(case-title current-case)</q>
                     </span>
                     <a id="StopWork" href="@stop-work-url">Stop Work</a>
                 </div>
                }
             }
-            @in[(project cases) estimated/grouped]{
-                <h2> @project </h2>
+            @in[project estimated/grouped]{
+                <h2> @(project-title project) </h2>
                     <ul>
-                    @in[case cases]{
+                    @in[case (project-cases project)]{
                         <li class="@(case-class case)">
                             <a class="details" href="http://fogbugz.phosphor.co.nz/default.asp?@(case-id case)">
                                 @(case-id case)
                             </a>
-                            <a class="startWork" href="@(start-work-url case)">
+                            <a class="startWork" href="@(start-work-url (case-id case))">
                                 @(case-title case)
                             </a>
                         </li>
@@ -38,22 +38,27 @@
     
             @when[(not (null? unestimated))]{
                 @list{
-                    <h2>Add an estimate</h2>
-                    <ul>
-                      @in[case unestimated]{
-                      <li class="unestimated">
-                        <a class="details" href="http://fogbugz.phosphor.co.nz/default.asp?@(case-id case)">@(case-id case)</a>
-                        @(case-project case) - 
-                        @(case-title case)
-                        <ul class="estimates">
-                            <li> <a href="@(set-estimate-url (case-id case) 0.5)">half an hour</a> </li>
-                            <li> <a href="@(set-estimate-url (case-id case) 1)">an hour</a> </li>
-                            <li> <a href="@(set-estimate-url (case-id case) 2)">two hours</a> </li>
-                            <li> <a href="@(set-estimate-url (case-id case) 4)">four hour</a> </li>
-                        </li>
-                      </li>
-                      }
-                  </ul>
+                    <h1>Add an estimate</h1>
+                    @in[project unestimated/grouped]{
+                        <h2>@(project-title project)</h2>
+                        <ul>
+                          @in[case (project-cases project)]{
+                          <li class="unestimated">
+                            <a class="details" href="http://fogbugz.phosphor.co.nz/default.asp?@(case-id case)">@(case-id case)</a>
+                            <ul class="estimates">
+                                <li> <a href="@(set-estimate-url (case-id case) 0.5)">&frac12;</a> </li>
+                                <li> <a href="@(set-estimate-url (case-id case) 1)">1</a> </li>
+                                <li> <a href="@(set-estimate-url (case-id case) 2)">2</a> </li>
+                                <li> <a href="@(set-estimate-url (case-id case) 4)">4</a> </li>
+                                <li> <a href="@(set-estimate-url (case-id case) 12)">12</a> </li>
+                            </ul>
+                            <div class="case">
+                                @(case-title case)
+                            </div>
+                          </li>
+                          }
+                      </ul>
+                    }
               }
             }
         </div>

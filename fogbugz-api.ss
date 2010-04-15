@@ -65,16 +65,17 @@
 
 (provide list-cases search list-filters set-current-filter)
 
+(define default-columns '("ixBug" "sTitle" "hrsCurrEst" "sProject"))
+
 (define (list-cases token)
-  (define columns '("ixBug" "sTitle" "hrsCurrEst" "sProject"))
   (set-current-filter token my-cases)
   (map case-xml->dict
        ((sxpath "/response/cases/case")
-        (fb-command token "search" `([cols . ,(string-join columns ",")])))))
+        (fb-command token "search" `([cols . ,(string-join default-columns ",")])))))
 
 (define (search token text
                 #:max     [max #f]
-                #:columns [columns #f])
+                #:columns [columns default-columns])
   (let ([response (fb-command token "search"
                               `([q . ,text]
                                 [max . ,max]
@@ -118,7 +119,8 @@
               `([ixPerson . ,person]
                 [ixBug . ,bug]
                 [dtStart . ,(and start (date->string start))]
-                [dtEnd . ,(and end (date->string end))])))
+                [dtEnd . ,(and end (date->string end))]
+                [cols . ,(string-join default-columns ",")])))
 
 (define (new-interval token bug start stop)
   (fb-command token "newInterval"
@@ -135,4 +137,4 @@
     (let ([current ((sxpath "//interval [dtend = '']")
                     (list-intervals token))])
       (and (not (null? current))
-           (case-xml->dict current))))
+           (first (search token (case-id (case-xml->dict current)))))))
