@@ -40,8 +40,9 @@
 (define (error-response? response)
   (let ([err ((sxpath "/response/error") response)])
     (and (not (null? err))
-         (make-exn:fogbugz-error (first ((sxpath "@code") err))
-                                 (first ((sxpath "text()") err))))))
+         (make-exn:fogbugz-error (first ((sxpath "text()") err))
+                                 (current-continuation-marks)
+                                 (first ((sxpath "@code") err))))))
 
 ;;; Logging On and Off
 ;;; ==================
