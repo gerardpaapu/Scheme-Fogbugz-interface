@@ -8,6 +8,17 @@
     </head>
     <body>
         <div id="MainContainer">
+            <a id="Logout" href="/logout">logout</a>
+            @when[current-case]{
+                @list{
+                <div id="CurrentCase">
+                    <span class="description">
+                        You're working on <q>@(case-title current-case)</q>
+                    </span>
+                    <a id="StopWork" href="@stop-work-url">Stop Work</a>
+                </div>
+               }
+            }
             @in[(project cases) estimated/grouped]{
                 <h2> @project </h2>
                     <ul>
@@ -44,16 +55,6 @@
                       }
                   </ul>
               }
-            }
-            @when[current-case]{
-                @list{
-                <div id="CurrentCase">
-                    <span class="description">
-                        You're working on <q>@(case-title current-case)</q>
-                    </span>
-                    <a id="StopWork" href="@stop-work-url">Stop Work</a>
-                </div>
-               }
             }
         </div>
     </body>

@@ -30,7 +30,7 @@ body {
 
 #MainContainer { 
     width: 40em;
-    padding: 0.5em 2em 2em;
+    padding: 0 2em 2em;
     margin: 0 auto;
     background: white;
     color: #333;
@@ -53,6 +53,7 @@ a:hover, a:active {
 }
 
 h1, h2, h3, h4, h5, h6 {
+    clear: both;
     font-weight: bold;
     margin: 1.3em 0 0.6em;
     font-family: Constantia, "Lucida Bright", Lucidabright, "Lucida Serif", Lucida, "DejaVu Serif," "Bitstream Vera Serif", "Liberation Serif", Georgia, serif;
@@ -87,14 +88,17 @@ q:after { content: "\201D"; }
 
 ul {
     list-style: none;
+    margin: 0;
     li.case {
-        padding: 0.5em;
-        margin: 0 2em;
+        padding: 0.5em 1em;
+        margin: 0 1em;
         clear: left;
     }
 
     li.current {
         background: #bada55;
+        padding: 1em;
+        .rounded-corners;
     }
 }
 
@@ -103,7 +107,7 @@ a.details {
     padding: 0.2em;
     display: block;
     float: left;
-    margin: 0 0.7em 0 -4.4em;
+    margin: 0 0.7em 0 0;
     width: 3em;
     text-align: center;
     background: #999;
@@ -119,35 +123,50 @@ a.details {
     }
 }
 
+a.startWork {
+    display: block;
+    margin-left: 4.1em;
+}
+
+#Logout {
+    display: block;
+    float: left;
+    background: black;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 1em;
+    width: 4em;
+    margin-bottom: 1em;
+    text-align: center;
+    .rounded-corners(0, 0, 1em, 1em);
+}
+
 #CurrentCase {
     display: block;
-    position: relative;
-    margin-top: 2em;
+    float: left;
     background: #ccc;
-    margin-top: 2em;
+    width: 30em;
+    margin-left: 1em;
+    margin-bottom: 1em;
     padding: 1em;
     color: #222;
-    .rounded-corners;
-    .clearfix;
-    .shadow(0.3em, #999);
+    .rounded-corners(0, 0, 1em, 1em);
 }
 
 #CurrentCase .description {
     float: left;
-    width: 28em;
 }
 
 #StopWork {
     display: block;
     float: right;
     padding: 0.5em 1em;
-
+    margin: 0.5em 0 0 0.5em;
     color: white;
     background: rgba(255, 0, 0, 0.8);
-
     font-weight: bold;
     text-decoration: none;
     text-align: center;
     .rounded-corners(0.5em, 0.5em, 0.5em, 0.5em);
-    .shadow(0.3em, #999);
 }
