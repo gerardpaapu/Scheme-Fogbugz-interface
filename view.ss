@@ -1,6 +1,5 @@
 #lang scheme
 (require "structs.ss"
-         "hash-sort.ss"
          web-server/templates)
 
 (provide list-cases)
