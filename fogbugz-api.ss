@@ -30,7 +30,8 @@
                                                     [query params*])
                                        get-pure-port
                                        read-sxml)])
-        (cond [(error-response? response) => raise]
+        (cond [(error-response? response) => (lambda (err)
+                                               (raise err #t))]
               [else response]))))
 
 (define (fb-command token name [params '()])
@@ -43,7 +44,7 @@
     (and (not (null? err))
          (make-exn:fogbugz-error (first ((sxpath "text()") err))
                                  (current-continuation-marks)
-                                 (first ((sxpath "@code") err))))))
+                                 (string->number (first ((sxpath "@code/text()") err)))))))
 
 ;;; Logging On and Off
 ;;; ==================
