@@ -23,4 +23,11 @@
 (define (case-estimate case)
   (string->number (dict-ref case "hrscurrest")))
 
+(define (case-resolved? case)
+  (define resolved-codes
+    ;; holy shit why are there so many status codes...
+    '(2 3 4 5 6 7 8 9 10 11 12 13 14 15 19 20 21 22 24 25 26 27 28 30 31 32 33 34 36 37 38 39 40 42 43 44))
+  (define n (string->number (dict-ref case "ixstatus" "0")))
+  (and (member n resolved-codes) n))
+
 (define-struct (exn:fogbugz-error exn:fail) (code) #:transparent)
