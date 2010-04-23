@@ -64,13 +64,13 @@
          [("1" "2" "3") #t]
          [else false])))
 
-(define-syntax define-session-page
+(define-syntax-rule (define-session-page (name token . args) body ...)
   ;; get the session-key or redirect to the login page
-  (syntax-rules ()
-    [(define-session-page (name token . args) body ...)
-     (define (name req . args)
-       (with-handlers ([exn:not-logged-on? login])
-         (cond [(get-session req)
-                => (lambda (token)
-                     body ... )]
-               [else (login)]))) ]))
+  (define (name req . args)
+    (with-handlers ([exn:not-logged-on? login]
+                    [exn:fogbugz-error? display-error])
+       (cond [(get-session req)
+              => (lambda (token)
+                   body ... )]
+             [else (login)]))))
+

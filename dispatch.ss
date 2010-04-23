@@ -8,14 +8,12 @@
 
 (provide (all-defined-out))
 
-(define-syntax define-action
+(define-syntax-rule (define-action controller method)
   ;; defines a simple action that simply executes a method
   ;; redirects to the home page
-  (syntax-rules ()
-    [(_ controller method)
-     (define-session-page (controller key . args)
-        (apply method key args)
-        (redirect-to (app-url list-cases)))]))
+  (define-session-page (controller key . args)
+    (apply method key args)
+    (redirect-to (app-url list-cases))))
 
 (define-values (app-dispatch app-url)
     (dispatch-rules 
