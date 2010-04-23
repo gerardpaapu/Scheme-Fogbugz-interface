@@ -20,6 +20,9 @@
       [("") list-cases]
       [("start-work" (string-arg)) start-work]
       [("stop-work") stop-work]
+      [("close-bug" (string-arg)) close-bug]
+      [("resolve-bug" (string-arg)) resolve-bug]
+      [("quick-interval" (string-arg) (number-arg)) quick-interval]
       [("logout") logout] ; provided from sessions.ss
       [("set-estimate" (string-arg) (number-arg)) set-estimate]))
 
@@ -28,8 +31,11 @@
   (define current-case (fb:working-on key))
   (apply view:list-cases cases current-case 
          (map (lambda (n) (curry app-url n))
-              (list start-work stop-work set-estimate))))
+              (list start-work stop-work set-estimate close-bug resolve-bug quick-interval))))
 
 (define-action start-work fb:start-work)
 (define-action stop-work fb:stop-work)
 (define-action set-estimate fb:set-estimate)
+(define-action close-bug fb:close-bug)
+(define-action resolve-bug fb:resolve-bug)
+(define-action quick-interval fb:quick-interval)

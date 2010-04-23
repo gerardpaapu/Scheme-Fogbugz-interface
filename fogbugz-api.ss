@@ -1,5 +1,6 @@
 #lang scheme
 (require "structs.ss"
+         (prefix-in time: "time.ss")
          net/url
          srfi/19
          (planet bzlib/xml:1:1)
@@ -65,7 +66,7 @@
 
 (provide list-cases search list-filters set-current-filter)
 
-(define default-columns '("ixBug" "sTitle" "hrsCurrEst" "sProject"))
+(define default-columns '("ixBug" "sTitle" "hrsCurrEst" "sProject" "ixStatus"))
 
 (define (list-cases token)
   (set-current-filter token my-cases)
@@ -102,7 +103,7 @@
 ;;; Time Tracking
 ;;; =============
 
-(provide start-work stop-work working-on list-intervals new-interval set-estimate)
+(provide start-work stop-work working-on list-intervals new-interval set-estimate resolve-bug close-bug quick-interval)
 
 (define (start-work token case)
   (fb-command token "startWork" `([ixBug . ,case])))
@@ -125,13 +126,26 @@
 (define (new-interval token bug start stop)
   (fb-command token "newInterval"
               `([ixBug . ,bug]
-                [dtStart . ,(date->string start)]
-                [dtEnd . ,(date->string stop)])))
+                [dtStart . ,(time:time-stamp start)]
+                [dtEnd . ,(time:time-stamp stop)])))
 
 (define (set-estimate token bug n)
   (fb-command token "edit"
               `([ixBug . ,bug]
                 [hrsCurrEst . ,(number->string n)])))
+
+(define (close-bug token bug)
+  (fb-command token "close" `([ixBug . ,bug])))
+
+(define (resolve-bug token bug)
+  (fb-command token "resolve"
+              `([ixBug . ,bug]
+                [ixStatus . "2"])))
+
+(define (quick-interval token bug minutes)
+  (define-values (start end)
+    (time:quick-interval minutes))
+  (new-interval token bug start end))
 
 (define (working-on token)
     (let ([current ((sxpath "//interval [dtend = '']")
