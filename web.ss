@@ -11,7 +11,7 @@
                  #:servlet-regexp #rx""
                  #:extra-files-paths '("static")
                  #:launch-browser? #f
-                 #:port 8000
+                 #:port 8675
                  #:listen-ip #f))
 
 
