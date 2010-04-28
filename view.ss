@@ -1,8 +1,10 @@
 #lang scheme
 (require "structs.ss"
+         (planet dherman/json:3:0)
+         web-server/http/response-structs
          web-server/templates)
 
-(provide list-cases)
+(provide list-cases list-cases-json)
 
 (define (list-cases cases current-case
                     start-work-url stop-work-url set-estimate-url
@@ -41,3 +43,27 @@
   (< 0 (case-estimate d)))
 
 (define-struct project (title cases))
+
+(define (case->dict case)
+  (and case
+       (make-immutable-hasheq `([id . ,(case-id case)]
+                                [title . ,(case-title case)]
+                                [resolved . ,(case-resolved? case)]
+                                [project . ,(case-project case)]))))
+
+(define (project->dict project)
+  (make-immutable-hasheq
+    `([title . ,(project-title project)]
+      [cases . ,(map case->dict (project-cases project))])))
+
+(define (list-cases-json cases current-case)
+  (define-values (estimated unestimated) (estimated/unestimated cases))
+  (define data (make-immutable-hasheq `([current-case . ,(case->dict current-case)]
+                                        [estimated . ,(map project->dict estimated)]
+                                        [unestimated . ,(map project->dict unestimated)])))
+
+  (make-response/full 200 #"Okay"
+                       (current-seconds)
+                       #"application/json"
+                       empty
+                       (list (string->bytes/utf-8 (jsexpr->json data)))))

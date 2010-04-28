@@ -71,7 +71,7 @@
          [(1 2 3) #t]
          [else #f])))
 
-(define-syntax-rule (define-session-page (name token . args) body ...)
+(define-syntax-rule (define-session-page (name token req . args) body ...)
   ;; get the session-key or redirect to the login page
   (define (name req . args)
     (with-handlers ([exn:not-logged-on? login]
