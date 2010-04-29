@@ -15,8 +15,8 @@
   ;; redirects to the home page
   (define-session-page (controller key req . args)
     (apply method key args)
-    (if (json-req? req)
-      (list-cases req)
+    (if (bare-html? req)
+      (list-cases* key #t)
       (redirect-to (app-url list-cases)))))
 
 (define-values (app-dispatch app-url)
@@ -30,14 +30,15 @@
       [("logout") logout] ; provided from sessions.ss
       [("set-estimate" (string-arg) (number-arg)) set-estimate]))
 
-(define-session-page (list-cases key req)
+(define (list-cases* key bare?)
   (define cases (fb:list-cases key))
   (define current-case (fb:working-on key))
-  (if (json-req? req)
-    (view:list-cases-json cases current-case)
-    (apply view:list-cases cases current-case 
-           (map (lambda (n) (curry app-url n))
-                (list start-work stop-work set-estimate close-bug resolve-bug quick-interval)))))
+  (apply view:list-cases cases current-case bare?
+         (map (lambda (n) (curry app-url n))
+              (list start-work stop-work set-estimate close-bug resolve-bug quick-interval))))
+
+(define-session-page (list-cases key req)
+  (list-cases* key (bare-html? req)))
 
 (define-action start-work fb:start-work)
 (define-action stop-work fb:stop-work)
@@ -46,8 +47,8 @@
 (define-action resolve-bug fb:resolve-bug)
 (define-action quick-interval fb:quick-interval)
 
-(define (json-req? req)
+(define (bare-html? req)
   (let* ([url (request-uri req)]
          [query (url-query url)])
     (string=? (dict-ref query 'format "")
-              "json")))
+              "bare-html")))

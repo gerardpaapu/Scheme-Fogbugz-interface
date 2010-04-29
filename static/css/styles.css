@@ -44,6 +44,7 @@ a:link {
 a:visited { color: #551a8b; }
 a:hover { text-decoration: none; }
 a:active { text-decoration: none; }
+a.disabled { color: grey; }
 h1, h2, h3, h4, h5, h6 {
   clear: both;
   font-weight: bold;
