@@ -176,29 +176,36 @@ a.startWork {
     }
 
     .case { margin-left: 4.1em; }    
-    .estimates {
-        margin: 0 0 1em 1em;
-        float: right;
+}
+
+.estimates, .quick-intervals {
+    margin: 0 0 1em 1em;
+    float: right;
 
 
-        li { 
-            float: left;
-            a {
-                display: block;
-                padding: 0.2em 0.5em;
-                margin: 0 0.7em 0 0;
-                background: #999;
-                .rounded-corners(0.3em, 0.3em, 0.3em, 0.3em);
+    li { 
+        float: left;
+        a {
+            display: block;
+            padding: 0.2em 0.5em;
+            margin: 0 0.7em 0 0;
+            background: #999;
+            .rounded-corners(0.3em, 0.3em, 0.3em, 0.3em);
 
-                :link, :visited {
-                    color: white;
-                    text-decoration: none;
-                }
-
-                :hover, :active {
-                    background: #555;
-                }
+            :link, :visited {
+                color: white;
+                text-decoration: none;
             }
+
+            :hover, :active {
+                background: #555;
+            }
+        }
+
+        a.disabled {
+            background: #333;
+            color: #999;
         }
     }
 }
+

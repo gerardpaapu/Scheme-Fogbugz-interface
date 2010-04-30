@@ -18,16 +18,15 @@
                 <a class="details" href="http://fogbugz.phosphor.co.nz/default.asp?@(case-id case)">
                     @(case-id case)
                 </a>
+                <ul class="quick-intervals">
+                    <li> <a class="quick-interval" href="@(quick-interval-url (case-id case) 5)">5</a> </li>
+                    <li> <a class="quick-interval" href="@(quick-interval-url (case-id case) 10)">10</a> </li>
+                    <li> <a class="quick-interval" href="@(quick-interval-url (case-id case) 15)">15</a> </li>
+                    <li> <a class="quick-interval" href="@(quick-interval-url (case-id case) 30)">30</a> </li>
+                </ul>
                 <a class="startWork" href="@(start-work-url (case-id case))">
                     @(case-title case)
                 </a>
-                <p>
-                I just spent
-                   (<a class="quick-interval" href="@(quick-interval-url (case-id case) 5)">5</a>,
-                    <a class="quick-interval" href="@(quick-interval-url (case-id case) 10)">10</a>,
-                    <a class="quick-interval" href="@(quick-interval-url (case-id case) 15)">15</a>,
-                    <a class="quick-interval" href="@(quick-interval-url (case-id case) 30)">30</a>) minutes on this.
-                </p>
             </li>
         }
         @in[case (filter case-resolved? (project-cases project))]{

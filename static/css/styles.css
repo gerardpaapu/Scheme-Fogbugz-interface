@@ -162,12 +162,12 @@ a.startWork {
 }
 .unestimated:nth-child(even) { background: #dddddd; }
 .unestimated .case { margin-left: 4.1em; }
-.unestimated .estimates {
+.estimates {
   margin: 0 0 1em 1em;
   float: right;
 }
-.unestimated .estimates li { float: left; }
-.unestimated .estimates li a {
+.estimates li { float: left; }
+.estimates li a {
   display: block;
   padding: 0.2em 0.5em;
   margin: 0 0.7em 0 0;
@@ -176,13 +176,45 @@ a.startWork {
   -moz-border-radius: 0.3em 0.3em 0.3em 0.3em;
   -webkit-border-radius: 0.3em 0.3em 0.3em 0.3em;
 }
-.unestimated .estimates li a:link {
+.estimates li a:link {
   color: white;
   text-decoration: none;
 }
-.unestimated .estimates li a:visited {
+.estimates li a:visited {
   color: white;
   text-decoration: none;
 }
-.unestimated .estimates li a:hover { background: #555555; }
-.unestimated .estimates li a:active { background: #555555; }
+.estimates li a:hover { background: #555555; }
+.estimates li a:active { background: #555555; }
+.estimates li a.disabled {
+  background: #333333;
+  color: #999999;
+}
+.quick-intervals {
+  margin: 0 0 1em 1em;
+  float: right;
+}
+.quick-intervals li { float: left; }
+.quick-intervals li a {
+  display: block;
+  padding: 0.2em 0.5em;
+  margin: 0 0.7em 0 0;
+  background: #999999;
+  border-radius: 0.3em 0.3em 0.3em 0.3em;
+  -moz-border-radius: 0.3em 0.3em 0.3em 0.3em;
+  -webkit-border-radius: 0.3em 0.3em 0.3em 0.3em;
+}
+.quick-intervals li a:link {
+  color: white;
+  text-decoration: none;
+}
+.quick-intervals li a:visited {
+  color: white;
+  text-decoration: none;
+}
+.quick-intervals li a:hover { background: #555555; }
+.quick-intervals li a:active { background: #555555; }
+.quick-intervals li a.disabled {
+  background: #333333;
+  color: #999999;
+}
