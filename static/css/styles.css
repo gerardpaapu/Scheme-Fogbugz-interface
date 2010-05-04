@@ -73,9 +73,16 @@ ul {
 ul li.case {
   padding: 0.5em 1em;
   margin: 0 1em;
-  clear: left;
 }
-ul li.current {
+ul li.case:after {
+  content: ".";
+  display: block;
+  clear: both;
+  height: 0px;
+  overflow: hidden;
+  visibility: hidden;
+}
+ul li.case.current {
   background: #bada55;
   padding: 1em;
   border-radius: 1em 1em 1em 1em;
@@ -138,6 +145,37 @@ a.startWork {
 }
 #CurrentCase .description { float: left; }
 #StopWork {
+  display: block;
+  float: right;
+  padding: 0.5em 1em;
+  margin: 0.5em 0 0 0.5em;
+  color: white;
+  background: rgba(255, 0, 0, 0.8);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
+}
+#ResolveCase {
+  display: block;
+  float: right;
+  padding: 0.5em 1em;
+  margin: 0.5em 0 0 0.5em;
+  color: white;
+  background: rgba(255, 0, 0, 0.8);
+  font-weight: bold;
+  text-decoration: none;
+  text-align: center;
+  border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -moz-border-radius: 0.5em 0.5em 0.5em 0.5em;
+  -webkit-border-radius: 0.5em 0.5em 0.5em 0.5em;
+  background: #4b911f;
+}
+#ResolveCase:hover { background: #72dd2d; }
+#ResolveCase:active { background: #72dd2d; }
+.close-case {
   display: block;
   float: right;
   padding: 0.5em 1em;
@@ -218,3 +256,7 @@ a.startWork {
   background: #333333;
   color: #999999;
 }
+.quick-intervals li a { background: #4b911f; }
+.quick-intervals li a:hover { background: #72dd2d; }
+.quick-intervals li a:active { background: #72dd2d; }
+.quick-intervals li a.disabled { background: #72dd2d; }

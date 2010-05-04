@@ -20,6 +20,7 @@
         visibility: hidden;
     }
 }
+
 body {
     background: #111;
     font-size: 14px;
@@ -87,12 +88,12 @@ ul {
     list-style: none;
     margin: 0;
     li.case {
+        .clearfix;
         padding: 0.5em 1em;
         margin: 0 1em;
-        clear: left;
     }
 
-    li.current {
+    li.case.current {
         background: #bada55;
         padding: 1em;
         .rounded-corners;
@@ -168,6 +169,18 @@ a.startWork {
     .rounded-corners(0.5em, 0.5em, 0.5em, 0.5em);
 }
 
+#ResolveCase {
+    #StopWork;
+    background: #4b911f;
+    
+    :hover, :active {
+        background: #72dd2d;
+    }
+}
+
+.close-case {
+    #StopWork;
+}
 .unestimated {
     padding: 1em;
     .clearfix; 
@@ -209,3 +222,15 @@ a.startWork {
     }
 }
 
+.quick-intervals li {
+    a {
+        background: #4b911f;
+        
+        :hover, :active {
+            background: #72dd2d;
+        }
+    }
+    a.disabled  {
+        background: #72dd2d;
+    }
+}
