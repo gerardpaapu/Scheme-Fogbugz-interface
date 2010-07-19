@@ -1,5 +1,5 @@
 #lang scheme
-(require (planet bzlib/xml:1:1)
+(require ;(planet bzlib/xml:1:1)
          (planet lizorkin/sxml:2:1/sxml))
 
 (provide (all-defined-out))

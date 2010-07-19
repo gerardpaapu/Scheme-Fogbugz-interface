@@ -3,8 +3,8 @@
          (prefix-in time: "time.ss")
          net/url
          srfi/19
-         (planet bzlib/xml:1:1)
-         (rename-in "compatibility.ss" [read-sxml read-sxml*])
+         ;(planet bzlib/xml:1:1)
+         (only-in "compatibility.ss" read-sxml)
          (planet lizorkin/sxml:2:1/sxml))
 
 ;;; Customization Parameters
@@ -30,7 +30,7 @@
              [response (call/input-url (struct-copy url (string->url (base-url))
                                                     [query params*])
                                        get-pure-port
-                                       read-sxml*)])
+                                       read-sxml)])
         (cond [(error-response? response) => (lambda (err)
                                                (raise err #t))]
               [else response]))))
