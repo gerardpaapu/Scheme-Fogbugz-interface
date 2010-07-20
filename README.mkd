@@ -1,0 +1,49 @@
+Fogbugz Interface
+================
+
+This simple interface is designed to make it easier to clock in/out of
+cases in Fogbugz.
+
+to run: 
+    $ mzscheme
+
+    > (require "web.rkt")
+    > (serve-app)
+
+
+structs.rkt
+----------
+
+common data-structure procedures including fogbugz errors
+
+compatibility.rkt
+--------------
+
+Converts xml (from read-xml) to sxml. This is a temporary fix, because
+bzlib/xml seems to be incompatible with the latest racket.
+
+fogbugz-api.rkt
+--------------
+
+does the heavy lifting of interfacing with fogbugz
+
+sessions.rkt
+-----------
+
+Handles the fogbugz logon and authorization tokens
+
+dispatch.rkt
+-----------
+
+pairs up requests with handlers
+
+view.rkt
+-------
+
+renders html
+
+web.rkt
+------
+
+simply runs the dispatcher as a servlet
+
