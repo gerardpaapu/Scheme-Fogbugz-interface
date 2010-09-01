@@ -5,11 +5,7 @@ This simple interface is designed to make it easier to clock in/out of
 cases in Fogbugz.
 
 to run: 
-    $ mzscheme
-
-    > (require "web.rkt")
-    > (serve-app)
-
+    $ racket run.rkt
 
 structs.rkt
 ----------
